@@ -62,7 +62,7 @@ CREATE TABLE orders (
     total_price DECIMAL(10,2) NOT NULL CHECK (total_price > 0),
     commission_amount DECIMAL(10,2) GENERATED ALWAYS AS (total_price * 0.10) STORED,
     payout_amount DECIMAL(10,2) GENERATED ALWAYS AS (total_price * 0.90) STORED,
-    status order_status DEFAULT 'pending_payment' NOT NULL,
+    status order_status DEFAULT 'pending' NOT NULL,
     created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
     CONSTRAINT check_buyer_not_seller CHECK (buyer_id != seller_id)
