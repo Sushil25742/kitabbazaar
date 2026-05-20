@@ -1,0 +1,1 @@
+export default function ReportsPage() { return <div className="p-8 text-center text-xl font-bold">Reports Mock</div>; }

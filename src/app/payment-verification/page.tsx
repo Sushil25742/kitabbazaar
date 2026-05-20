@@ -1,0 +1,1 @@
+export default function PaymentVerificationPage() { return <div className="p-8 text-center text-xl font-bold">Payment Verification Mock</div>; }
