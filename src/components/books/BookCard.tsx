@@ -17,10 +17,10 @@ export function BookCard({ id, title, author, originalPrice, sellingPrice, condi
   const discount = originalPrice > 0 ? Math.round(((originalPrice - sellingPrice) / originalPrice) * 100) : 0;
 
   return (
-    <div className="group relative flex flex-col rounded-2xl bg-white shadow-sm border border-zinc-100 hover:shadow-md transition-all dark:bg-zinc-900 dark:border-zinc-800 overflow-hidden">
+    <div className="group relative flex flex-col rounded-2xl bg-white/80 backdrop-blur-md shadow-sm border border-zinc-100 hover:shadow-lg hover:border-emerald-500/20 glow-hover transition-all dark:bg-zinc-900/80 dark:border-zinc-800 overflow-hidden cursor-pointer">
       <div className="relative aspect-[3/4] w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800">
         {imageUrl ? (
-          <img src={imageUrl} alt={title} className="object-cover w-full h-full" />
+          <Image src={imageUrl} alt={title} fill className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center text-zinc-400">No Image</div>
         )}
@@ -38,7 +38,7 @@ export function BookCard({ id, title, author, originalPrice, sellingPrice, condi
           {originalPrice > 0 && <span className="text-sm text-zinc-400 line-through mb-0.5">Rs. {originalPrice}</span>}
         </div>
         <div className="flex gap-2 w-full mt-4">
-          <Link href={`/books/${id}`} className="w-1/3 block text-center rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-200 transition-colors flex items-center justify-center">
+          <Link href={`/books/${id}`} className="w-1/3 block text-center rounded-full bg-zinc-100 px-4 py-2 text-sm font-medium text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700 transition-colors flex items-center justify-center hover:scale-105 active:scale-95">
             View
           </Link>
           <div className="w-2/3 -mt-4">

@@ -9,11 +9,13 @@ export async function Navbar() {
   const { data: { user } } = await supabase.auth.getUser();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-white/80 backdrop-blur-md dark:border-zinc-800 dark:bg-black/80">
+    <header className="sticky top-0 z-50 w-full border-b border-white/20 glass-panel">
       <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2">
-          <BookOpen className="h-6 w-6 text-emerald-600 dark:text-emerald-500" />
-          <span className="text-xl font-bold tracking-tight">KitabBazaar</span>
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-emerald-100 dark:bg-emerald-900/30 group-hover:scale-110 transition-transform">
+            <BookOpen className="h-5 w-5 text-emerald-600 dark:text-emerald-500" />
+          </div>
+          <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400">KitabBazaar</span>
         </Link>
         <div className="hidden md:flex flex-1 max-w-md mx-6">
           <div className="relative w-full">
@@ -27,12 +29,14 @@ export async function Navbar() {
           
           {user ? (
             <div className="flex items-center gap-4">
-              <CartIcon />
-              <Link href="/profile" className="text-zinc-600 hover:text-emerald-600 dark:text-zinc-400">
+              <div className="hover:scale-110 transition-transform">
+                <CartIcon />
+              </div>
+              <Link href="/profile" className="text-zinc-600 hover:text-emerald-600 dark:text-zinc-400 hover:scale-110 transition-transform">
                 <User className="h-5 w-5" />
               </Link>
               <form action={logout}>
-                <button type="submit" className="text-zinc-600 hover:text-red-600 dark:text-zinc-400">
+                <button type="submit" className="text-zinc-600 hover:text-red-600 dark:text-zinc-400 hover:scale-110 transition-transform">
                   <LogOut className="h-5 w-5" />
                 </button>
               </form>
