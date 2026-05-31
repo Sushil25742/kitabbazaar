@@ -1,0 +1,41 @@
+{
+  "branchName": "feature/shopping-cart",
+  "userStories": [
+    {
+      "id": "US1",
+      "title": "Add book to cart",
+      "description": "As a user, I want to add a book to my shopping cart from the book details page.",
+      "acceptanceCriteria": [
+        "Add to Cart button is visible",
+        "Clicking adds item to global state",
+        "Header cart badge updates"
+      ],
+      "priority": "High",
+      "passes": false
+    },
+    {
+      "id": "US2",
+      "title": "View cart contents",
+      "description": "As a user, I want to view the contents of my shopping cart to review my selected books.",
+      "acceptanceCriteria": [
+        "Cart page displays list of items",
+        "Shows book title, cover, price, and quantity",
+        "Subtotal is calculated correctly"
+      ],
+      "priority": "High",
+      "passes": false
+    },
+    {
+      "id": "US3",
+      "title": "Update or remove cart items",
+      "description": "As a user, I want to update the quantity of a book in my cart or remove it entirely.",
+      "acceptanceCriteria": [
+        "Quantity increment/decrement buttons work",
+        "Remove button deletes item from cart",
+        "Totals update immediately upon changes"
+      ],
+      "priority": "High",
+      "passes": false
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { AddToCartButton } from '@/components/cart/AddToCartButton';
 
 interface BookProps {
   id: string;
@@ -36,9 +37,14 @@ export function BookCard({ id, title, author, originalPrice, sellingPrice, condi
           <span className="text-xl font-bold text-zinc-900 dark:text-white">Rs. {sellingPrice}</span>
           {originalPrice > 0 && <span className="text-sm text-zinc-400 line-through mb-0.5">Rs. {originalPrice}</span>}
         </div>
-        <Link href={`/books/${id}`} className="mt-4 w-full block text-center rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-200 transition-colors">
-          View Details
-        </Link>
+        <div className="flex gap-2 w-full mt-4">
+          <Link href={`/books/${id}`} className="w-1/3 block text-center rounded-full bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-200 transition-colors flex items-center justify-center">
+            View
+          </Link>
+          <div className="w-2/3 -mt-4">
+            <AddToCartButton bookId={id} />
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BookOpen, Search, User, ShoppingBag, Menu, LogOut } from 'lucide-react';
 import { createClient } from '@/lib/supabase/server';
 import { logout } from '@/app/auth/actions';
+import { CartIcon } from '@/components/cart/CartIcon';
 
 export async function Navbar() {
   const supabase = await createClient();
@@ -26,6 +27,7 @@ export async function Navbar() {
           
           {user ? (
             <div className="flex items-center gap-4">
+              <CartIcon />
               <Link href="/profile" className="text-zinc-600 hover:text-emerald-600 dark:text-zinc-400">
                 <User className="h-5 w-5" />
               </Link>
