@@ -11,10 +11,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // @ts-ignore
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default withSentryConfig(nextConfig, {
@@ -23,5 +19,4 @@ export default withSentryConfig(nextConfig, {
   project: "placeholder-project",
   widenClientFileUpload: true,
   sourcemaps: { disable: true },
-  disableLogger: true,
 });

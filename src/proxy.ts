@@ -1,7 +1,37 @@
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/proxy'
+import { Ratelimit } from '@upstash/ratelimit';
+import { redis } from '@/lib/upstash';
+
+// Initialize rate limiter: 10 requests per 10 seconds
+const ratelimit = new Ratelimit({
+  redis: redis,
+  limiter: Ratelimit.slidingWindow(10, '10 s'),
+  analytics: true,
+});
 
 export async function proxy(request: NextRequest) {
+  // 1. Rate Limiting for API routes in production
+  if (process.env.NODE_ENV !== 'development' && request.nextUrl.pathname.startsWith('/api')) {
+    const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
+    try {
+      const { success, limit, reset, remaining } = await ratelimit.limit(ip);
+      if (!success) {
+        return new NextResponse('Too Many Requests', {
+          status: 429,
+          headers: {
+            'X-RateLimit-Limit': limit.toString(),
+            'X-RateLimit-Remaining': remaining.toString(),
+            'X-RateLimit-Reset': reset.toString(),
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Rate limit error:', error);
+    }
+  }
+
+  // 2. Supabase Auth Session Update
   return await updateSession(request)
 }
 
