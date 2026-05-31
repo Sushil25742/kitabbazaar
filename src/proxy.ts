@@ -3,16 +3,18 @@ import { updateSession } from '@/lib/supabase/proxy'
 import { Ratelimit } from '@upstash/ratelimit';
 import { redis } from '@/lib/upstash';
 
-// Initialize rate limiter: 10 requests per 10 seconds
-const ratelimit = new Ratelimit({
-  redis: redis,
-  limiter: Ratelimit.slidingWindow(10, '10 s'),
-  analytics: true,
-});
+// Initialize rate limiter only if Upstash is configured
+const ratelimit = process.env.UPSTASH_REDIS_REST_URL 
+  ? new Ratelimit({
+      redis: redis,
+      limiter: Ratelimit.slidingWindow(10, '10 s'),
+      analytics: true,
+    })
+  : null;
 
 export async function proxy(request: NextRequest) {
   // 1. Rate Limiting for API routes in production
-  if (process.env.NODE_ENV !== 'development' && request.nextUrl.pathname.startsWith('/api')) {
+  if (process.env.NODE_ENV !== 'development' && request.nextUrl.pathname.startsWith('/api') && ratelimit) {
     const ip = request.headers.get('x-forwarded-for') ?? '127.0.0.1';
     try {
       const { success, limit, reset, remaining } = await ratelimit.limit(ip);
